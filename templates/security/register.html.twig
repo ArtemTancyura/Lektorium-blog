@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="page-form registration">
+
+        <div class="container">
+
+            <h2>Registration</h2>
+
+            <p>sign up, because we need you!(joke)</p>
+
+            <form action="{{ path("app_register") }}" method="post">
+
+                {{ form_widget(form) }}
+
+                <input type="submit" class="button" value="Registration" /><br>
+
+            </form>
+
+            <p> More options </p>
+            <a href="{{ path('app_login') }}">Login page</a> <a href="{{ path('home') }}">Main page</a>
+        </div>
+
+    </div>
+
+
+{% endblock %}

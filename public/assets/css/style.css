@@ -1,0 +1,77 @@
+
+.container{
+    width: 80%;
+    height: 275px;
+    margin: 0 auto;
+    border: 1px solid gray;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.container img{
+    width: 40%;
+    float: left;
+    margin-right: 15px;
+}
+
+h4{
+    color: gray;
+}
+
+.nav a{
+    padding: 10px;
+    float: right;
+    border: 1px solid gainsboro;
+    text-decoration: none;
+    color: black;
+}
+.nav a:hover{
+    background: gainsboro;
+}
+
+
+/***    PAGE REGISTRATION /LOGIN  ***/
+
+.registration .container{
+    height: 700px;
+}
+.login .container{
+    height: 550px;
+}
+.page-form h2, .page-form p, .page-form a{
+    text-align: center;
+    width: 100%;
+    float: right;
+}
+.page-form #form div{
+    height: 50px;
+}
+.page-form label{
+    width: 50%;
+    float: right;
+    text-align: center;
+    padding: 10px;;
+    margin-right: 25%;
+}
+.page-form input{
+    width: 50%;
+    padding: 10px;
+    float: right;
+    margin-right: 25%;
+}
+.page-form .button{
+    float: right;
+    margin-top: 50px;
+    width: 52%;
+    padding: 15px;
+    border-radius: 10px;
+    margin-right: 25%;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid gainsboro;
+}
+.page-form .button:hover{
+    background: white;
+}
+
+

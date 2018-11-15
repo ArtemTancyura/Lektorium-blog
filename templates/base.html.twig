@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Symfony!</title>
+
+    {% block stylesheets %}
+
+        <link href="assets/css/style.css" rel="stylesheet" />
+
+    {% endblock %}
+
+
+
+</head>
+{% block body %}
+
+    <div class="container">
+
+        <div class="nav">
+            <a href="{{ path('app_register') }}">Registration </a> <a href="{{ path('app_login') }}">Login</a>
+        </div>
+
+        <img alt="articleImg" src="{{ img }}"/>
+
+        <div class="text-article">
+
+            <h2 class="title"> {{ title }} </h2>
+
+            <h4 class="author"> Article written by {{ name }}, {{ date }}</h4>
+
+            <p> {{ article }} </p>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+</html>
+
