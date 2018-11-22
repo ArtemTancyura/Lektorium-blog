@@ -10,11 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Symfony\Component\Routing\Annotation\Route;
 use App\Service\AdminMessageService;
 use App\Service\HomePageService;
 
-class AuthController extends AbstractController
+class DefaultController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
@@ -51,8 +51,8 @@ class AuthController extends AbstractController
 
             $form->handleRequest($request);
 
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+//            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+//            $user->setPassword($password);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -64,36 +64,6 @@ class AuthController extends AbstractController
         return $this->render('security/register.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/home", name="home")
-     */
-    public function homeAction(HomePageService $pageGenerator)
-    {
-
-        $content = $pageGenerator->getPage();
-
-        return $this->render('base.html.twig', [
-            'article' => $content['text'],
-            'name' => $content['name'],
-            'date' => $content['date'],
-            'img' => $content['img'],
-            'title' => $content['title'],
-        ]);
-    }
-
-
-    /**
-     * @Route("/admin", name="admin")
-     */
-    public function adminAction(AdminMessageService $messageGenerator)
-    {
-        $message = $messageGenerator->getAdminMessage();
-
-        return $this->render('admin.html.twig', [
-            'message' => $message
-        ]);
-    }
+    }  
 }
 

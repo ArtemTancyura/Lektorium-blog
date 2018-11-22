@@ -2,14 +2,14 @@
 
 namespace App\Service;
 
-class MessageGenerator
+class AdminMessageService
 {
-    public function getHappyMessage()
+    public function getAdminMessage()
     {
         $messages = [
-            'You did it! You updated the system! Amazing!',
-            'That was one of the coolest updates I\'ve seen all day!',
-            'Great work! Keep going!',
+            'Hello Admin',
+            'Nice to meet you, admin',
+            'Admin lox',
         ];
 
         $index = array_rand($messages);
