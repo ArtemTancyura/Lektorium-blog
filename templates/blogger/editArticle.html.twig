@@ -1,0 +1,41 @@
+{% extends 'blogger/blogger.html.twig' %}
+
+
+{% block body %}
+
+    {% block leftsidebar %}
+
+        {{ parent() }}
+
+    {% endblock %}
+
+    {% block rightpart %}
+
+        <div class="right-part edit-article">
+            <ul>
+
+                {% for article in articles %}
+
+                    <li><h3>{{ article.title }}</h3>
+
+                        <div>
+                            <h4>Short Text</h4>
+                            <span class="shorttext">{{ article.shortText }}</span>
+                        </div>
+                        <div>
+                            <h4>Long Text</h4>
+                            <span class="shorttext">{{ article.longText }}</span>
+                        </div>
+                        <a href="#"> delete </a>
+                    </li>
+
+                {% endfor %}
+            </ul>
+
+
+        </div>
+
+    {% endblock %}
+
+
+{% endblock %}

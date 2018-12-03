@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin page{% endblock %}
+
+
+{% block body %}
+
+    {% block leftsidebar %}
+
+        <div class="left-sidebar">
+            <ul>
+                <li><a href="{{ path('home') }}"> homepage </a></li>
+                <li><a href="{{ path('admin') }}"> admin homepage </a></li>
+                <li><a href="{{ path('edit-user') }}"> edit users </a></li>
+                <li><a href="{{ path('add-article') }}"> add article </a></li>
+                <li><a href="{{ path('edit-article') }}"> edit article </a></li>
+            </ul>
+        </div>
+
+    {% endblock %}
+
+
+
+    {% block rightpart %}
+
+        <div class="right-part">
+            <h1>{{ message }}</h1>
+        </div>
+
+    {% endblock %}
+
+
+{% endblock %}

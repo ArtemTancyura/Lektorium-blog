@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="nav">
+            <p> Hello, {{ user }}</p>
+            <a href="{{ path('app_logout') }}">Logout </a>
+        </div>
+
+
+            <div class="text-article">
+
+                <h2 class="title"> {{ article.title }} </h2>
+
+                <h4 class="author"> Article written by {{ article.author }}</h4>
+
+                <p> {{ article.longText }} </p>
+
+            </div>
+
+
+    </div>
+
+{% endblock %}

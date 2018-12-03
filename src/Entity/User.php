@@ -15,17 +15,17 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    public $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    public $roles = [];
 
     public function __construct()
     {
@@ -42,12 +42,12 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstName;
+    public $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastName;
+    public $lastName;
 
     public function getId(): ?int
     {

@@ -31,5 +31,19 @@ class UserFixtures extends Fixture
 
         $manager->persist($user);
         $manager->flush();
+        
+        
+        $user1 = new User();
+        
+        $encodedPassword1 = $this->passwordEncoder->encodePassword($user, 'blogger');
+        $user1
+            ->setRoles(['ROLE_BLOGGER', 'ROLE_USER'])
+            ->setEmail('blog@blog.blog')
+            ->setPassword($encodedPassword1)
+            ->setFirstName('NOTArtem')
+            ->setLastName('NOTTantsiura');
+
+        $manager->persist($user1);
+        $manager->flush();
     }
 }

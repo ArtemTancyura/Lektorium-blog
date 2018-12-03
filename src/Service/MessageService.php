@@ -2,13 +2,13 @@
 
 namespace App\Service;
 
-class AdminMessageService
+class MessageService
 {
-    public function getAdminMessage()
+    public function getMessage()
     {
         $messages = [
-            'Hello Admin',
-            'Nice to meet you, admin',
+            'Hello my friend',
+            'Nice to meet you',
             'Admin lox',
         ];
 

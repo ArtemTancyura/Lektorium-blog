@@ -21,9 +21,9 @@ class DefaultController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // get the login error if there is one
+
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+
         $lastUsername = $authenticationUtils->getLastUsername();
 
         $form = $this->createForm(LoginType::class, [
@@ -51,8 +51,8 @@ class DefaultController extends AbstractController
 
             $form->handleRequest($request);
 
-//            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-//            $user->setPassword($password);
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -64,6 +64,14 @@ class DefaultController extends AbstractController
         return $this->render('security/register.html.twig', [
             'form' => $form->createView(),
         ]);
-    }  
+    }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logoutAction()
+    {
+        return $this->redirectToRoute('app_login');
+    }
 }
 

@@ -1,0 +1,29 @@
+{% extends 'blogger/blogger.html.twig' %}
+
+
+{% block body %}
+
+    {% block leftsidebar %}
+
+        {{ parent() }}
+
+    {% endblock %}
+
+    {% block rightpart %}
+
+        <div class="right-part add-article">
+
+            <form action="{{ path("blogger_add_article") }}" method="post">
+
+                {{ form_widget(form) }}
+
+                <input type="submit" class="button" value="Save" /><br>
+
+            </form>
+
+        </div>
+
+    {% endblock %}
+
+
+{% endblock %}

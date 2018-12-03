@@ -5,7 +5,7 @@
 
     {% block stylesheets %}
 
-        <link href="assets/css/style.css" rel="stylesheet" />
+        <link href="/assets/css/style.css" rel="stylesheet" />
 
     {% endblock %}
 
@@ -17,23 +17,30 @@
     <div class="container">
 
         <div class="nav">
-            <a href="{{ path('app_register') }}">Registration </a> <a href="{{ path('app_login') }}">Login</a>
+            <p> Hello, {{ user }}</p>
+            <a href="{{ path('app_logout') }}">Logout </a>
         </div>
 
-        <img alt="articleImg" src="{{ img }}"/>
+            {% for article in articles %}
 
-        <div class="text-article">
+                <div class="text-article">
 
-            <h2 class="title"> {{ title }} </h2>
+                    <h2 class="title"> {{ article.title }} </h2>
 
-            <h4 class="author"> Article written by {{ name }}, {{ date }}</h4>
+                    <h4 class="author"> Article written by {{ article.author }}</h4>
 
-            <p> {{ article }} </p>
+                    <p> {{ article.shortText }} </p>
 
-        </div>
+                    <a href="{{ path('more', {'id': article.id }) }}"> show more </a>
+                </div>
+
+            {% endfor %}
+
 
     </div>
 
 {% endblock %}
+
 </html>
+
 
