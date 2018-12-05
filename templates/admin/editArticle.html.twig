@@ -25,7 +25,8 @@
                             <h4>Long Text</h4>
                             <span class="shorttext">{{ article.longText }}</span>
                         </div>
-                        <a href="#"> delete </a>
+                        <a href="{{ path('delete_article', {'id': article.id }) }}"> delete </a>
+                        <a href="{{ path('update_article', {'id': article.id }) }}"> update </a>
                     </li>
 
                 {% endfor %}

@@ -72,4 +72,49 @@ class BloggerController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Article $id
+     * @Route("/blogger/edit-article/delete/{id}", name="blogger_delete_article")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteArticleAction(Request $request, Article $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository(Article::class)->find($id);
+        $em->remove($product);
+        $em->flush();
+
+        return $this->redirectToRoute('blogger');
+    }
+
+    /**
+     * @param Request $request
+     * @param Article $id
+     * @Route("/blogger/update-article/{id}", name="blogger_update_article")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateArticleAction(Request $request, Article $id)
+    {
+
+        $form = $this->createForm(AddArticleType::class, $id);
+
+        if ($request->getMethod() == Request::METHOD_POST) {
+
+            $blogPost = $form->getData();
+
+            $form->handleRequest($request);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('blogger_update_article', [
+                'id' => $blogPost->getId(),
+            ]);
+        }
+
+        return $this->render('blogger/updateArticle.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -30,6 +32,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
+        $this->likes = new ArrayCollection();
     }
 
 
@@ -48,6 +51,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     public $lastName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user_id")
+     */
+    private $likes;
 
     public function getId(): ?int
     {
@@ -147,6 +155,37 @@ class User implements UserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getUserId() === $this) {
+                $like->setUserId(null);
+            }
+        }
 
         return $this;
     }

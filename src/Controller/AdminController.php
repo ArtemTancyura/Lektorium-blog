@@ -32,7 +32,7 @@ class AdminController extends AbstractController
     /**
      * @param Request $request
      * @param User $id
-     * @Route("/admin/edit-user/delete/{$id}", name="delete")
+     * @Route("/admin/edit-user/delete/{id}", name="delete")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function deleteUserAction(Request $request, User $id)
@@ -46,6 +46,46 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin');
     }
 
+
+    /**
+     * @param Request $request
+     * @param User $id
+     * @Route("/admin/edit-user/role-blogger/{id}", name="role_blogger")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function addRoleBloggerAction(Request $request, User $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+        $em->persist($user);
+
+        $user->setRoles(['ROLE_BLOGGER', 'ROLE_USER']);
+
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @param Request $request
+     * @param User $id
+     * @Route("/admin/edit-user/role-admin/{id}", name="role_admin")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function addRoleAdminAction(Request $request, User $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+        $em->persist($user);
+
+        $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
+    }
 
 
     /**
@@ -97,11 +137,55 @@ class AdminController extends AbstractController
 
         $articles = $repository->findAll();
 
-
         return $this->render('admin/editArticle.html.twig', [
             'articles' => $articles,
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Article $id
+     * @Route("/admin/edit-article/delete/{id}", name="delete_article")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteArticleAction(Request $request, Article $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository(Article::class)->find($id);
+        $em->remove($product);
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @param Request $request
+     * @param Article $id
+     * @Route("/admin/update-article/{id}", name="update_article")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateArticleAction(Request $request, Article $id)
+    {
+
+        $form = $this->createForm(AddArticleType::class, $id);
+
+        if ($request->getMethod() == Request::METHOD_POST) {
+
+            $blogPost = $form->getData();
+
+            $form->handleRequest($request);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('update_article', [
+                'id' => $blogPost->getId(),
+            ]);
+        }
+
+        return $this->render('admin/updateArticle.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 }

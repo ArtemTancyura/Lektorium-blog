@@ -11,8 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\AdminMessageService;
-use App\Service\HomePageService;
+use App\Service\MessageService;
 
 class DefaultController extends AbstractController
 {

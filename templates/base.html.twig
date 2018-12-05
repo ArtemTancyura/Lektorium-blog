@@ -31,11 +31,18 @@
 
                     <p> {{ article.shortText }} </p>
 
-                    <a href="{{ path('more', {'id': article.id }) }}"> show more </a>
+                    <a class="more" href="{{ path('more', {'id': article.id }) }}"> show more </a>
+
+                    <a class="like" href="{{ path('add_like', {'id': article.id }) }}"> &#9829 0 </a>
                 </div>
 
             {% endfor %}
 
+        <div class="navigation">
+
+            {{ knp_pagination_render(articles) }}
+
+        </div>
 
     </div>
 

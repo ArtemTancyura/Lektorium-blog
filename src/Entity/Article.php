@@ -40,6 +40,11 @@ class Article
      */
     private $authorId;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Like", inversedBy="Ñarticle_id")
+     */
+    private $likes;
+
 
     public function getId(): ?int
     {
@@ -101,6 +106,18 @@ class Article
     public function setAuthorId(int $authorId): self
     {
         $this->authorId = $authorId;
+        return $this;
+    }
+
+    public function getLikes(): ?Like
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(?Like $likes): self
+    {
+        $this->likes = $likes;
+
         return $this;
     }
 }

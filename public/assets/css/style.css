@@ -17,7 +17,7 @@
 .text-article h4{
     color: gray;
 }
-.text-article a{
+.text-article a.more{
     text-decoration: none;
     text-transform: uppercase;
     padding: 5px;
@@ -27,7 +27,7 @@
     font-weight: bold;
     border-radius: 15px;
 }
-.text-article a:hover{
+.text-article a.more:hover{
     background: white;
     color: gray;
 
@@ -55,6 +55,79 @@
     border-bottom: 1px solid gray;
     padding-bottom: 20px;
 }
+
+.pagination{
+    text-align: center;
+    margin-top: 40px;
+}
+.pagination span.current{
+    border: 2px solid gray;
+    color: gray;
+    padding: 10px;
+    text-decoration: none;
+}
+.pagination span a{
+    background: gray;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+.text-article a.like{
+    float: right;
+    margin-right: 20px;
+    background: none;
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    background: red;
+}
+
+/***    SINGLE ARTICLE  ***/
+.comments{
+    border: 1px solid gray;
+    background: gainsboro;
+}
+.comment-form label{
+    display: none;
+}
+.comment-form h3{
+    text-align: center;
+}
+.comment-form textarea{
+    width: 60%;
+    height: 100px;
+    margin-left: 20%;
+}
+.comment-form button{
+    width: 60.5%;
+    margin-left: 20%;
+    padding: 10px;
+    background: gray;
+    border: 2px solid gray;
+    color: white;
+    font-weight: bold;
+}
+.comment-form button:hover{
+    background: white;
+    color: gray;
+}
+
+.resent-comments ul{
+    list-style-type: none;
+    padding-left: 0;
+    margin: 20px;
+}
+.resent-comments li{
+    border-bottom: 1px solid gray;
+    padding: 15px;
+    margin-top: 15px;
+}
+.resent-comments li .author{
+    padding: 7px;
+    border-radius: 10px;
+    background: white;
+}
+
 
 /***    PAGE REGISTRATION /LOGIN  ***/
 
@@ -161,6 +234,8 @@
     overflow-x: hidden;
 }
 .right-part ul li a{
+    font-size: 12px;
+    margin-left: 5px;
     border: 1px solid gray;
     background: gray;
     color: white;
@@ -182,6 +257,7 @@
     margin: 0 auto;
     text-align: center;
     margin-top: 10vh;
+    margin-bottom: 50px;
 }
 .add-article form label{
     width: 100%;
@@ -199,15 +275,16 @@
     margin-bottom: 15px;
     height: 20vh;
 }
-.add-article form input.button{
+.add-article form button{
     background: gray;
+    padding: 15px;
     color: white;
     text-transform: uppercase;
     font-weight: bold;
     width: 100%;
     border: 2px solid gray;
 }
-.add-article form input.button:hover{
+.add-article form button:hover{
     background: white;
     color: gray;
     cursor: pointer;
@@ -245,5 +322,5 @@
     text-align: justify;
 }
 .edit-article a{
-    margin-left: 45%;
+    margin-left: 25%;
 }

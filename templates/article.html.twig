@@ -12,17 +12,39 @@
         </div>
 
 
-            <div class="text-article">
+        <div class="text-article">
 
-                <h2 class="title"> {{ article.title }} </h2>
+            <h2 class="title"> {{ article.title }} </h2>
 
-                <h4 class="author"> Article written by {{ article.author }}</h4>
+            <h4 class="author"> Article written by {{ article.author }}</h4>
 
-                <p> {{ article.longText }} </p>
+            <p> {{ article.longText }} </p>
+
+        </div>
+
+        <div class="comments">
+
+            <div class="comment-form">
+                <h3> Leave your comment </h3>
+                {{ form(form) }}
 
             </div>
 
+            <div class="resent-comments">
 
+                <ul>
+                    {% for comment in comments %}
+
+                        <li><span class="author">{{ comment.author }}</span>
+                            <span class="text">{{ comment.text }}</span>
+                        </li>
+
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
     </div>
 
 {% endblock %}

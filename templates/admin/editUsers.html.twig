@@ -11,7 +11,7 @@
 
     {% block rightpart %}
 
-        <div class="right-part">
+        <div class="right-part edit-users">
             <ul>
                 {% for user in users %}
 
@@ -19,6 +19,8 @@
                         <span>{{ user.firstName }}</span>
                         <span>{{ user.lastName }}</span>
                         <a href="{{ path('delete', {'id': user.id }) }}"> delete </a>
+                        <a href="{{ path('role_blogger', {'id': user.id }) }}"> make blogger </a>
+                        <a href="{{ path('role_admin', {'id': user.id }) }}"> make admin </a>
                     </li>
 
                 {% endfor %}
