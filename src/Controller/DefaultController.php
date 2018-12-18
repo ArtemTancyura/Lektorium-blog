@@ -17,6 +17,7 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * @Route("/",)
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

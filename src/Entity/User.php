@@ -52,15 +52,6 @@ class User implements UserInterface
      */
     public $lastName;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user_id")
-     */
-    private $likes;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getEmail(): ?string
     {
@@ -159,34 +150,4 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Like[]
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): self
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes[] = $like;
-            $like->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): self
-    {
-        if ($this->likes->contains($like)) {
-            $this->likes->removeElement($like);
-            // set the owning side to null (unless already changed)
-            if ($like->getUserId() === $this) {
-                $like->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
 }
