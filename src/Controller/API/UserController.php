@@ -2,7 +2,6 @@
 
 namespace App\Controller\API;
 
-
 use App\Entity\User;
 use App\Entity\Article;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,7 +31,7 @@ class UserController extends Controller
             throw new JsonHttpException(400, 'Bad Request');
         }
         /** @var Article $article */
-        $article = $serializer->deserialize($request->getContent(),Article::class,'json');
+        $article = $serializer->deserialize($request->getContent(), Article::class, 'json');
         $errors = $validator->validate($article);
         if (count($errors)) {
             throw new JsonHttpException(400, 'Bad Request');

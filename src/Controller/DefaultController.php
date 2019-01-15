@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\MessageService;
 
-
 class DefaultController extends AbstractController
 {
 

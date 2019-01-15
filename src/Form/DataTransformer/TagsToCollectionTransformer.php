@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class TagsToCollectionTransformer implements DataTransformerInterface
 {
-
     private $manager;
 
     public function __construct(ObjectManager $manager)
@@ -29,14 +28,12 @@ class TagsToCollectionTransformer implements DataTransformerInterface
             ->getRepository('App:Tag');
 
         foreach ($tags as $tag) {
-
             $tagInRepo = $tagsRepository->findOneByText($tag->getText());
 
             if ($tagInRepo !== null) {
                 // Add tag from repository if found
                 $tagCollection->add($tagInRepo);
-            }
-            else {
+            } else {
                 // Otherwise add new tag
                 $tagCollection->add($tag);
             }
@@ -44,5 +41,4 @@ class TagsToCollectionTransformer implements DataTransformerInterface
 
         return $tagCollection;
     }
-
 }

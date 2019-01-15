@@ -123,7 +123,7 @@ class BloggerController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $userId = $this->getUser()->getId();
-        $bloggerArticles = $repository->findBy(['author' => $userId], ['id' => 'DESC']);        
+        $bloggerArticles = $repository->findBy(['author' => $userId], ['id' => 'DESC']);
         $paginator  = $this->get('knp_paginator');
         $articles = $paginator->paginate(
             $bloggerArticles,

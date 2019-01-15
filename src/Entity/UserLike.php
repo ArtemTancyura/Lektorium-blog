@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserLikeRepository")
  */
@@ -38,11 +40,11 @@ class UserLike
     {
         return $this->likes;
     }
-/**
- * @param bool $likes
- * @return UserLike
- */
-public function setLikes(?bool $likes): self
+    /**
+     * @param bool $likes
+     * @return UserLike
+     */
+    public function setLikes(?bool $likes): self
     {
         $this->likes = $likes;
         return $this;
@@ -51,36 +53,36 @@ public function setLikes(?bool $likes): self
      * @return mixed
      */
     public function getUser()
-{
-    return $this->user;
-}
+    {
+        return $this->user;
+    }
     /**
      * @param mixed $user
      * @return UserLike
      */
     public function setUser($user): self
-{
-    $this->user = $user;
-    return $this;
-}
+    {
+        $this->user = $user;
+        return $this;
+    }
     /**
      * @return mixed
      */
     public function getArticle()
-{
-    return $this->article;
-}
+    {
+        return $this->article;
+    }
     /**
      * @param mixed $article
      * @return UserLike
      */
     public function setArticle($article): self
-{
-    $this->article = $article;
-    return $this;
-}
+    {
+        $this->article = $article;
+        return $this;
+    }
     public function __toString()
-{
-    return $this->likes;
-}
+    {
+        return $this->likes;
+    }
 }

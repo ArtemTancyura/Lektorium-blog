@@ -15,7 +15,7 @@ class BackgroundType extends AbstractType
     {
         $builder
             ->add('text', TextareaType::class)
-            ->add('image', FileType::class,[
+            ->add('image', FileType::class, [
                 'label' => false
             ])
         ;

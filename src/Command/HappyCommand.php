@@ -8,8 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 class HappyCommand extends ContainerAwareCommand
 {
-
-
     protected function configure()
     {
         $this
@@ -20,7 +18,6 @@ class HappyCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        
         $output->writeln([
             '',
             'I believe in you, bro',
@@ -33,4 +30,3 @@ class HappyCommand extends ContainerAwareCommand
         ]);
     }
 }
-

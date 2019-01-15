@@ -20,7 +20,7 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $user1 = new User();        
+        $user1 = new User();
         $encodedPassword1 = $this->passwordEncoder->encodePassword($user1, 'blogger');
         $user1
             ->setRoles(['ROLE_BLOGGER', 'ROLE_USER'])
@@ -28,7 +28,7 @@ class UserFixtures extends Fixture
             ->setPassword($encodedPassword1)
             ->setFirstName('Notartem')
             ->setLastName('Nottantsiura')
-            ->setApiToken($uuid4 = Uuid::uuid4());        
+            ->setApiToken($uuid4 = Uuid::uuid4());
         $manager->persist($user1);
         $manager->flush();
 

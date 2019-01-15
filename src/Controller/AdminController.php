@@ -280,7 +280,7 @@ class AdminController extends Controller
     public function updateArticleAction(Request $request, Article $id, ImageServices $fileUploader)
     {
         $form = $this->createForm(ArticleType::class, $id);
-        $form->handleRequest($request);        
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $blogPost = $form->getData();
             $file = $blogPost->get('image')->getData();

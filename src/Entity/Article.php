@@ -234,5 +234,4 @@ class Article
         $comment->setArticle(null);
         $this->comments->removeElement($comment);
     }
-
 }

@@ -222,10 +222,10 @@ class User implements UserInterface, \JsonSerializable
         return $this;
     }
 
-   /**
-    * @param string $apiToken
-    */
-   public function setApiToken($apiToken)
+    /**
+     * @param string $apiToken
+     */
+    public function setApiToken($apiToken)
     {
         $this->apiToken = $apiToken;
     }

@@ -73,7 +73,7 @@ class PagesController extends Controller
         $em = $this->getDoctrine()->getManager();
         // system control content quality :)
         // delete article if dislikes > likes 5 times
-        if($dislikes > ($likes + 1) * 5){
+        if ($dislikes > ($likes + 1) * 5) {
             $article = $id;
             $em->remove($article);
             $em->flush();
