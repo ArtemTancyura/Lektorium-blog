@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to my blog!</title>
+
+    {% block stylesheets %}
+
+        <link href="/assets/css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+        <link href="/assets/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+
+
+    {% endblock %}
+
+    {% block javascripts %}
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/assets/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+    {% endblock %}
+
+</head>
+{% block body %}
+
+    {% block nav %}
+        <div class="nav">
+            <div>
+                <a href="{{ path('app_logout') }}">Logout </a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin')}}">Admin panel</a>
+                {% elseif is_granted('ROLE_BLOGGER')%}
+                    <a href="{{ path('blogger')}}">Blogger panel</a>
+                {% else %}
+                    <a href="#">User panel</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block sidebar %}
+
+        <div class="author-sidebar">
+
+            <img src="/assets/img/avatars/{{ user.avatar }}"/>
+            <ul>
+                <li>{{ user.firstName }}</li>
+                <li>{{ user.lastName }}</li>
+                <li>{{ user.email }}</li>
+            </ul>
+
+        </div>
+    {% endblock %}
+
+
+
+    <div class="article-block">
+
+        <div class="return-button">
+            <a href="{{ path('home')}}"> Move to homepage</a>
+        </div>
+
+        {% for article in articles %}
+
+            <div class="text-article">
+
+                <h2 class="title"> {{ article.title }} </h2>
+
+                <h4 class="author"> Article written by
+                        {{ article.author.firstName}} {{ article.author.lastName}}
+                </h4>
+
+                {% for tag in article.tags %}
+
+                    <a href="{{ path('articles_order_tag', {'id': tag.id }) }}" class="tags">{{ tag.text }}</a>
+
+                {% endfor %}
+
+                <p> {{ article.shortText }} </p>
+
+                <a class="more" href="{{ path('author_more', {'id': article.id }) }}"> show more </a>
+
+            </div>
+
+        {% endfor %}
+
+        <div class="navigation">
+
+            {{ knp_pagination_render(articles) }}
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+</html>
+
+

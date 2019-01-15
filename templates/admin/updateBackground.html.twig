@@ -1,0 +1,33 @@
+{% extends 'admin/admin.html.twig' %}
+
+
+{% block body %}
+
+    {% block leftsidebar %}
+
+        {{ parent() }}
+
+    {% endblock %}
+
+    {% block rightpart %}
+
+        <div class="right-part add-article">
+
+            {{ form_start(form) }}
+
+            {{ form_row(form.text) }}
+            {{ form_row(form.image) }}
+
+            <input type="submit" class="btn-save" value="Save" />
+            {{ form_end(form) }}
+
+        </div>
+
+    {% endblock %}
+
+{% endblock %}
+
+
+
+
+

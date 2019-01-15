@@ -1,0 +1,46 @@
+{% extends 'admin/admin.html.twig' %}
+
+
+{% block body %}
+
+    {% block leftsidebar %}
+
+        {{ parent() }}
+
+    {% endblock %}
+
+    {% block rightpart %}
+
+        <div class="right-part edit-article">
+            <ul>
+                {% for article in articles %}
+
+                    <li><h3>{{ article.title }}</h3>
+
+                        <div>
+                            <h4>Short Text</h4>
+                            <span class="shorttext">{{ article.shortText }}</span>
+                        </div>
+                        <div>
+                            <h4>Long Text</h4>
+                            <span class="shorttext">{{ article.longText }}</span>
+                        </div>
+                        <a href="{{ path('delete_article', {'id': article.id }) }}"> delete </a>
+                        <a href="{{ path('update_article', {'id': article.id }) }}"> update </a>
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+        </div>
+
+        <div class="navigation">
+
+            {{ knp_pagination_render(articles) }}
+
+        </div>
+
+    {% endblock %}
+
+
+{% endblock %}

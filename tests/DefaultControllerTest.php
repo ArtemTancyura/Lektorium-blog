@@ -19,7 +19,6 @@ class DefaultControllerTest extends WebTestCase
             $client->getResponse()->isRedirect('/login')
 
         );
-
     }
 
     public function testRegistration()

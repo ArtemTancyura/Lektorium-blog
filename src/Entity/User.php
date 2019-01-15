@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -27,6 +30,14 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    public function __construct()
+    {
+        $this->roles = ['ROLE_USER'];
+        $this->likes = new ArrayCollection();
+        $this->avatar = 'c55a30b23a24afad5a49862c91103646.png';
+    }
+
+
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -43,6 +54,37 @@ class User implements UserInterface
      */
     private $lastName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserLike", mappedBy="user")
+     */
+    private $userLikes;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+
+    private $apiToken;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Image()
+     */
+    private $avatar;
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -65,7 +107,7 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return (string) $this->email;
     }
@@ -82,6 +124,14 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+//    public function addRoles(): array
+//    {
+//        $this->roles;
+//        array_push($roles, $this);
+//
+//        return array_unique($roles);
+//    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -92,7 +142,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return (string) $this->password;
     }
@@ -143,5 +193,51 @@ class User implements UserInterface
         $this->lastName = $lastName;
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection|UserLike[]
+     */
+    public function getUserLike(): ArrayCollection
+    {
+        return $this->userLikes;
+    }
+    public function addUserLike(UserLike $likes): self
+    {
+        if (!$this->userLikes->contains($likes)) {
+            $this->userLikes[] = $likes;
+            $likes->setUser($this);
+        }
+        return $this;
+    }
+    public function removeUserLike(UserLike $likes): self
+    {
+        if ($this->userLikes->contains($likes)) {
+            $this->userLikes->removeElement($likes);
+            // set the owning side to null (unless already changed)
+            if ($likes->getUser() === $this) {
+                $likes->setUser(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $apiToken
+     */
+    public function setApiToken($apiToken)
+    {
+        $this->apiToken = $apiToken;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'email' => $this->getEmail(),
+            'roles' => $this->getRoles()
+        ];
     }
 }

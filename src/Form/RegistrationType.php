@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationType extends AbstractType
 {
@@ -19,7 +20,10 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class)
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('password', RepeatedType::class)
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+            ])
         ;
     }
 
