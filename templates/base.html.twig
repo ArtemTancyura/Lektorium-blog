@@ -1,42 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to Symfony!</title>
+    <title>Welcome to my blog!</title>
 
     {% block stylesheets %}
 
         <link href="/assets/css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+        <link href="/assets/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+
 
     {% endblock %}
 
+    {% block javascripts %}
 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/assets/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+    {% endblock %}
 
 </head>
 {% block body %}
 
-    <div class="container">
-
+    {% block nav %}
         <div class="nav">
-            <p> Hello, {{ user }}</p>
-            <a href="{{ path('app_logout') }}">Logout </a>
+            <div>
+                <a href="{{ path('app_logout') }}">Logout </a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin')}}">Admin panel</a>
+                {% elseif is_granted('ROLE_BLOGGER')%}
+                    <a href="{{ path('blogger')}}">Blogger panel</a>
+                {% else %}
+                    <a href="{{ path('user')}}">User panel</a>
+                {% endif %}
+            </div>
         </div>
+    {% endblock %}
+
+
+    {% block background %}
+
+        <div class="bg-image">
+            <img src="/assets/img/background/{{ bg.image }}"/>
+        </div>
+        <div class="bg-text">
+            {{ bg.text }}
+        </div>
+    {% endblock %}
+
+    {% block sidebar %}
+
+        <div class="tags-sidebar">
+            <h3> tags </h3>
+
+            {% for tag in tags %}
+
+                <a href="{{ path('articles_order_tag', {'id': tag.id }) }}">{{ tag.text }}</a>
+
+            {% endfor %}
+
+        </div>
+    {% endblock %}
+
+    <div class="article-block">
 
             {% for article in articles %}
+
+
 
                 <div class="text-article">
 
                     <h2 class="title"> {{ article.title }} </h2>
 
-                    <h4 class="author"> Article written by {{ article.author }}</h4>
+                    <h4 class="author"> Article written by
+                        <a href="{{ path('view-author', {'id': article.author.id }) }}">
+                            {{ article.author.firstName}} {{ article.author.lastName}}</a>
+                    </h4>
+
+                    {% for tag in article.tags %}
+
+                        <a href="{{ path('articles_order_tag', {'id': tag.id }) }}" class="tags">{{ tag.text }}</a>
+
+                    {% endfor %}
+
+                    <div class="image">
+                        <img src="/assets/img/{{ article.image }}"/>
+                    </div>
 
                     <p> {{ article.shortText }} </p>
 
                     <a class="more" href="{{ path('more', {'id': article.id }) }}"> show more </a>
 
-                    <a class="like" href="{{ path('add_like', {'id': article.id }) }}"> &#9829 0 </a>
                 </div>
 
             {% endfor %}
+
 
         <div class="navigation">
 

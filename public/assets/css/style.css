@@ -1,4 +1,13 @@
+@font-face{
+    font-family: 'Axon-Regular';
+    src: url('/assets/fonts/Axon-Bold.otf');
+}
 
+
+body{
+    background: #DCDCDC;
+    font-family: Axon-Regular, sans-serif;
+}
 .container{
     width: 80%;
     margin: 0 auto;
@@ -6,14 +15,93 @@
     padding: 20px;
     padding-bottom: 50px;
     border-radius: 20px;
-}
 
+}
+.bg-image{
+    width: 100%;
+    position: relative;
+}
+.bg-image img{
+    width: 100%;
+}
+.bg-text{
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    text-align: center;
+    top: 50%;
+    color: gray;
+    font-size: 25px;
+}
+.article-block{
+    width: 70%;
+    margin: 0 auto;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.tags-sidebar{
+    margin-left: 20px;
+}
+.tags-sidebar, .author-sidebar{
+    width: 20%;
+    float: left;
+    border: 1px solid gray;
+    border-radius: 20px;
+    text-align: center;
+    padding-bottom: 30px;
+    background: white;
+    margin-top: 20px;
+}
+.author-sidebar img{
+    width: 60%;
+}
+.tags-sidebar h3{
+    text-transform: uppercase;
+}
+.tags-sidebar a{
+    background: gray;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    width: 38%;
+    float: left;
+    margin-left: 5px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid white;
+}
+.tags-sidebar a:hover{
+    border: 1px solid gray;
+    background: white;
+    color: gray;
+}
+.author-sidebar ul{
+    padding: 20px !important;
+}
+.author-sidebar li{
+    list-style-type: none;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid gray;
+}
 .container img{
     width: 40%;
     float: left;
     margin-right: 15px;
 }
-
+.text-article{
+    background: white;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.text-article .image{
+    margin-top: 20px;
+}
+.text-article .image img{
+    width: 100%;
+}
 .text-article h4{
     color: gray;
 }
@@ -43,17 +131,32 @@
     text-decoration: none;
     color: black;
 }
+.nav div{
+    margin-right: 5%;
+}
 .nav p{
     color: gray;
-    float: left
+    float: left;
+    margin-left: 5%;
 }
 .nav a:hover{
     background: gainsboro;
 }
-
+a.tags{
+    background: gray;
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid gray;
+}
+a.tags:hover{
+    background: white;
+    color: gray;
+}
 .text-article{
     border-bottom: 1px solid gray;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
 }
 
 .pagination{
@@ -72,20 +175,13 @@
     padding: 10px;
     text-decoration: none;
 }
-.text-article a.like{
-    float: right;
-    margin-right: 20px;
-    background: none;
-    text-decoration: none;
-    color: white;
-    padding: 5px;
-    background: red;
-}
+
 
 /***    SINGLE ARTICLE  ***/
 .comments{
     border: 1px solid gray;
     background: gainsboro;
+    margin-bottom: 50px;
 }
 .comment-form label{
     display: none;
@@ -121,14 +217,39 @@
     border-bottom: 1px solid gray;
     padding: 15px;
     margin-top: 15px;
+    position: relative;
 }
-.resent-comments li .author{
-    padding: 7px;
-    border-radius: 10px;
+.comment-avatar{
+    text-align: center;
+}
+.resent-comments img{
+    width: 80px;
+}
+
+.resent-comments span.name{
     background: white;
+    padding: 10px;
+    position: absolute;
+    top: 30px;
 }
-
-
+.resent-comments span.text{
+    position: relative;
+}
+.text-article a.like, .text-article a.dislike{
+    float: left;
+    background: none;
+    text-decoration: none;
+    color: red;
+    padding: 5px;
+    font-size: 25px;
+    margin-top: -10px;
+}
+.text-article a.dislike{
+    color: black !important;
+}
+.text-article a.like img, .text-article a.dislike img{
+    width: 40px;
+}
 /***    PAGE REGISTRATION /LOGIN  ***/
 
 .registration .container{
@@ -229,9 +350,12 @@
     margin-bottom: 15px;
 }
 .right-part ul li span{
-    width: 20%;
+    width: 15%;
     float: left;
     overflow-x: hidden;
+}
+.right-part ul li span.email{
+    width: 37%;
 }
 .right-part ul li a{
     font-size: 12px;
@@ -244,6 +368,13 @@
     text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
+}
+.tagit-close:before{
+    content: "x";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: gray;
 }
 .right-part ul li a:hover{
     background: white;
@@ -267,6 +398,7 @@
     padding: 15px;
     margin-top: 20px;
     margin-bottom: 15px;
+    border: 1px solid gray;
 }
 .add-article form textarea{
     width: 95%;
@@ -274,8 +406,9 @@
     margin-top: 20px;
     margin-bottom: 15px;
     height: 20vh;
+    border: 1px solid gray;
 }
-.add-article form button{
+.add-article form .btn-save{
     background: gray;
     padding: 15px;
     color: white;
@@ -284,11 +417,25 @@
     width: 100%;
     border: 2px solid gray;
 }
-.add-article form button:hover{
+.add-article form .btn-save:hover{
     background: white;
     color: gray;
     cursor: pointer;
 }
+#tags{
+    border: 1px solid gray;
+}
+#tags li{
+    border: none;
+}
+#tags span{
+    width: 100% !important;
+    color: gray;
+}
+.tagTitle{
+    font-weight: 100;
+}
+
 
 /***    EDIT ARTICLE    ***/
 .edit-article li{
@@ -323,4 +470,49 @@
 }
 .edit-article a{
     margin-left: 25%;
+}
+
+
+/***    USER PAGE   ***/
+.user-right-part{
+    height: 90vh;
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin-top: 5vh;
+}
+.user-right-part .avatar{
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+.user-right-part .avatar img{
+    width: 80%;
+    height: 80%;
+    max-width: 100%;
+    max-height: 100%;
+}
+.user-right-part .avatar .btn-save{
+    margin-top: 20px;
+    width: 80%;
+    background: gray;
+    border: 2px solid gray;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+}
+.user-right-part .info{
+    width: 49%;
+    float: left;
+    margin-top: 20vh;
+}
+.user-right-part .info div{
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+}
+.user-right-part .message{
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
 }

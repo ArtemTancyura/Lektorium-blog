@@ -9,7 +9,6 @@ class MessageService
         $messages = [
             'Hello my friend',
             'Nice to meet you',
-            'Admin lox',
         ];
 
         $index = array_rand($messages);

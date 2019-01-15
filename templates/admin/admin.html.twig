@@ -11,7 +11,9 @@
             <ul>
                 <li><a href="{{ path('home') }}"> homepage </a></li>
                 <li><a href="{{ path('admin') }}"> admin homepage </a></li>
-                <li><a href="{{ path('edit-user') }}"> edit users </a></li>
+                <li><a href="{{ path('update_admin_info') }}"> change profile info </a></li>
+                <li><a href="{{ path('update_background') }}"> change blog background </a></li>
+                <li><a href="{{ path('user-list') }}"> edit users </a></li>
                 <li><a href="{{ path('add-article') }}"> add article </a></li>
                 <li><a href="{{ path('edit-article') }}"> edit article </a></li>
             </ul>
@@ -23,8 +25,28 @@
 
     {% block rightpart %}
 
-        <div class="right-part">
-            <h1>{{ message }}</h1>
+        <div class="right-part user-right-part">
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+            <div class="avatar">
+                <img src="/assets/img/avatars/{{ user.avatar }}"/>
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" class="btn-save" value="Save" />
+                {{ form_end(form) }}
+
+            </div>
+
+            <div class="info">
+                <div>{{ user.firstName }}</div>
+                <div>{{ user.lastName }}</div>
+                <div>{{ user.email }}</div>
+            </div>
+
         </div>
 
     {% endblock %}

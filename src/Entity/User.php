@@ -6,33 +6,35 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, \JsonSerializable
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    public $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    public $email;
+    private $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    public $roles = [];
+    private $roles = [];
 
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->likes = new ArrayCollection();
+        $this->avatar = 'c55a30b23a24afad5a49862c91103646.png';
     }
 
 
@@ -45,13 +47,48 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    public $firstName;
+    private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    public $lastName;
+    private $lastName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserLike", mappedBy="user")
+     */
+    private $userLikes;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+
+    private $apiToken;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Image()
+     */
+    private $avatar;
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+    
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getEmail(): ?string
     {
@@ -86,6 +123,14 @@ class User implements UserInterface
 
         return array_unique($roles);
     }
+
+//    public function addRoles(): array
+//    {
+//        $this->roles;
+//        array_push($roles, $this);
+//
+//        return array_unique($roles);
+//    }
 
     public function setRoles(array $roles): self
     {
@@ -150,4 +195,49 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return ArrayCollection|UserLike[]
+     */
+    public function getUserLike(): ArrayCollection
+    {
+        return $this->userLikes;
+    }
+    public function addUserLike(UserLike $likes): self
+    {
+        if (!$this->userLikes->contains($likes)) {
+            $this->userLikes[] = $likes;
+            $likes->setUser($this);
+        }
+        return $this;
+    }
+    public function removeUserLike(UserLike $likes): self
+    {
+        if ($this->userLikes->contains($likes)) {
+            $this->userLikes->removeElement($likes);
+            // set the owning side to null (unless already changed)
+            if ($likes->getUser() === $this) {
+                $likes->setUser(null);
+            }
+        }
+        return $this;
+    }
+
+   /**
+    * @param string $apiToken
+    */
+   public function setApiToken($apiToken)
+    {
+        $this->apiToken = $apiToken;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'email' => $this->getEmail(),
+            'roles' => $this->getRoles()
+        ];
+    }
 }

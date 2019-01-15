@@ -13,11 +13,41 @@
 
         <div class="right-part add-article">
 
-            {{ form(form) }}
+            {{ form_start(form) }}
+
+            {{ form_row(form.title) }}
+
+            <h3 class="tagTitle">Tags</h3>
+
+            {% do form.tags.setRendered %}
+            <ul id="tags" data-prototype-field-name="{{ form.tags.vars.prototype.text.vars.full_name }}"></ul>
+
+            {{ form_row(form.shortText) }}
+            {{ form_row(form.longText) }}
+            {{ form_row(form.image) }}
+
+            <input type="submit" class="btn-save" value="Save" />
+            {{ form_end(form) }}
 
         </div>
 
     {% endblock %}
 
+    <script>
+        $(document).ready(function () {
 
+            var $tags = $('ul#tags');
+
+            var prototypeField = $tags.data('prototype-field-name');
+            var fieldIndex = 0;
+
+            $tags.tagit({
+                fieldName: prototypeField.replace(/__name__/g, fieldIndex),
+                beforeTagAdded: function (event, ui) {
+                    fieldIndex++;
+                    $(this).tagit({fieldName: prototypeField.replace(/__name__/g, fieldIndex)});
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -22,14 +22,20 @@ class Comments
     private $text;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var Article
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $article_id;
+    private $article;
 
     public function getId(): ?int
     {
@@ -48,26 +54,26 @@ class Comments
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(User $author)
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getArticleId(): ?int
+    public function getArticle(): ?Article
     {
-        return $this->article_id;
+        return $this->article;
     }
 
-    public function setArticleId(int $article_id): self
+    public function setArticle(?Article $article)
     {
-        $this->article_id = $article_id;
+        $this->article = $article;
 
         return $this;
     }

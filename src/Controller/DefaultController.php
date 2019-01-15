@@ -13,15 +13,21 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\MessageService;
 
+
 class DefaultController extends AbstractController
 {
+
+    /**
+     * Login logic
+     */
+
+
     /**
      * @Route("/login", name="app_login")
      * @Route("/",)
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-
         $error = $authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -29,11 +35,23 @@ class DefaultController extends AbstractController
         $form = $this->createForm(LoginType::class, [
             'email' => $lastUsername,
         ]);
+
+        if ($request->getMethod() == Request::METHOD_POST) {
+            $form->handleRequest($request);
+            return $this->redirectToRoute('home');
+        }
+
         return $this->render('security/login.html.twig', [
             'form' => $form->createView(),
             'error' => $error,
         ]);
     }
+
+
+    /**
+     * Registration logic
+     */
+
 
     /**
      * @param Request $request
@@ -42,18 +60,16 @@ class DefaultController extends AbstractController
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-
         $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
 
         if ($request->getMethod() == Request::METHOD_POST) {
-
             $form->handleRequest($request);
 
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -69,9 +85,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logoutAction()
+    public function logout()
     {
-        return $this->redirectToRoute('app_login');
     }
 }
-

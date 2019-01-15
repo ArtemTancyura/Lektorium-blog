@@ -14,7 +14,8 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: apikey
+#                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -26,7 +27,12 @@ security:
                 - App\Security\AppCustomAuthenticator
             logout:
                 path: app_logout
-
+                target: app_login
+        api:
+            pattern: ^/api/
+            guard:
+                authenticators:
+                    - App\Security\TokenAuthenticator
 
             # activate different ways to authenticate
 

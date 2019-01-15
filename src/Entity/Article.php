@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @ORM\Entity()
+ * @ORM\Table(name="article")
  */
 class Article
 {
@@ -31,15 +34,64 @@ class Article
      */
     private $longText;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserLike", mappedBy="article", cascade={"remove"})
      */
-    private $authorId;
+    private $userLikes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserDislike", mappedBy="article", cascade={"remove"})
+     */
+    private $userDislikes;
+
+    /**
+     * @var Tag[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="article", cascade={"persist"})
+     * @ORM\JoinTable(name="article_tag")
+     */
+    private $tags;
+
+    /**
+     * @var Comments[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="article", cascade={"persist"}, cascade={"remove"})
+     */
+    private $comments;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Image()
+     */
+    private $image;
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+    
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+        $this->userLikes = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,26 +134,105 @@ class Article
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(?User $author)
     {
         $this->author = $author;
         return $this;
     }
 
-    public function getAuthorId(): ?int
+    public function addTag(?Tag ...$tags): void
     {
-        return $this->title;
+        foreach ($tags as $tag) {
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
     }
 
-    public function setAuthorId(int $authorId): self
+    public function removeTag(Tag $tag): void
     {
-        $this->authorId = $authorId;
+        $this->tags->removeElement($tag);
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+    * @return ArrayCollection|UserLike[]
+    */
+    public function getUserLikes()
+    {
+        return $this->userLikes;
+    }
+    public function addUserLike(UserLike $userLike): self
+    {
+        if (!$this->userLikes->contains($userLike)) {
+            $this->userLikes[] = $userLike;
+            $userLike->setArticle($this);
+        }
         return $this;
     }
-    
+    public function removeUserLike(UserLike $userLike): self
+    {
+        if ($this->userLikes->contains($userLike)) {
+            $this->userLikes->removeElement($userLike);
+            // set the owning side to null (unless already changed)
+            if ($userLike->getArticle() === $this) {
+                $userLike->setArticle(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|UserDislike[]
+     */
+    public function getUserDislikes()
+    {
+        return $this->userDislikes;
+    }
+    public function addUserDislike(UserLike $userDislike): self
+    {
+        if (!$this->userDislikes->contains($userDislike)) {
+            $this->userDislikes[] = $userDislike;
+            $userDislike->setArticle($this);
+        }
+        return $this;
+    }
+    public function removeUserDislike(UserDislike $userDislike): self
+    {
+        if ($this->userDislikes->contains($userDislike)) {
+            $this->userDislikes->removeElement($userDislike);
+            // set the owning side to null (unless already changed)
+            if ($userDislike->getArticle() === $this) {
+                $userDislike->setArticle(null);
+            }
+        }
+        return $this;
+    }
+
+    public function getComment(): Collection
+    {
+        return $this->comments;
+    }
+    public function addComment(?Comments $comment): void
+    {
+        $comment->setArticle($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+        }
+    }
+    public function removeComment(Comments $comment): void
+    {
+        $comment->setArticle(null);
+        $this->comments->removeElement($comment);
+    }
+
 }
