@@ -22,7 +22,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/user", name="view_user_info")
+     * @Route("/user", name="user")
      */
     public function viewUsersAction(Request $request, AvatarServices $fileUploader)
     {

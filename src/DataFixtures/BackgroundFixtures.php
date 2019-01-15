@@ -12,7 +12,7 @@ class BackgroundFixtures extends Fixture
     {
         $bg = new Background();
         $bg
-            ->setText('Enjoy my blog')
+            ->setText('Hello, lectorium! Enjoy my blog')
             ->setImage('77892475a745caa3a2fe21494cd534a9.jpeg');
 
         $manager->persist($bg);
