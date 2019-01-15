@@ -5,8 +5,8 @@
 - [ ] edit .env
 - [ ] run:
     `composer install`  
-    `bin/console make:migration`  
-    `bin/console doctrine:migrations:migrate`  
+    `bin/console d:d:c`  
+    `bin/console d:s:u -f`  
     `bin/console doctrine:fixtures:load`  
      for making admin  
     `bin/console app:admin-create -n "name" -s "surname" -e "email" -p "password"`  
