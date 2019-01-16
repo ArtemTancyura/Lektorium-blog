@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use App\Entity\Background;
 use App\Entity\User;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -23,16 +22,15 @@ class ArticleFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $user = new User();
-
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'qwerty');
-
+        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'blogger');
         $user
-            ->setRoles(['ROLE_ADMIN', 'ROLE_USER'])
-            ->setEmail('qwe@qwe.qwe')
+            ->setRoles(['ROLE_BLOGGER', 'ROLE_USER'])
+            ->setEmail('blog@blog.blog')
             ->setPassword($encodedPassword)
-            ->setFirstName('Artem')
-            ->setLastName('Tantsiura')
+            ->setFirstName('Notartem')
+            ->setLastName('Nottantsiura')
             ->setApiToken($uuid4 = Uuid::uuid4());
+        
         for ($i = 0; $i < 7; $i++) {
             $article = new Article();
             $faker = \Faker\Factory::create();
