@@ -23,9 +23,7 @@ class ArticleFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $user = new User();
-
         $encodedPassword = $this->passwordEncoder->encodePassword($user, 'blogger');
-
         $user
             ->setRoles(['ROLE_BLOGGER', 'ROLE_USER'])
             ->setEmail('blog@blog.blog')
