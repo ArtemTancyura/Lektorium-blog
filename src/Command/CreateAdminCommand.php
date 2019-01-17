@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Ramsey\Uuid\Uuid;
 
 class CreateAdminCommand extends ContainerAwareCommand
 {
@@ -58,7 +59,8 @@ class CreateAdminCommand extends ContainerAwareCommand
         $user->setLastName($surname);
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
         $user->setEmail($email);
-
+        $user->setApiToken($uuid4 = Uuid::uuid4());
+        
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
         $em->persist($user);

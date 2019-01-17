@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use App\Entity\Background;
 use App\Entity\User;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
