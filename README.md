@@ -9,7 +9,7 @@
     `bin/console d:s:u -f`  
     `bin/console doctrine:fixtures:load`  
      for making admin  
-    `bin/console app:admin-create -n "name" -s "surname" -e "email" -p "password"`  
+    `bin/console app:admin-create -a "name" -b "surname" -c "email" -d "password"`  
      if you have a bad mood  
     `bin/console app:want-happy`  
       
