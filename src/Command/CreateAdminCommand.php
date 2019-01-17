@@ -30,10 +30,10 @@ class CreateAdminCommand extends ContainerAwareCommand
             ->setHelp('This command allows you to create a admin')
             ->setDefinition(
                 new InputDefinition(array(
-                    new InputOption('name', 'n', InputOption::VALUE_REQUIRED, "Name of user"),
-                    new InputOption('surname', 's', InputOption::VALUE_OPTIONAL, "Surname of user"),
-                    new InputOption('email', 'e', InputOption::VALUE_REQUIRED, "Email of user"),
-                    new InputOption('password', 'p', InputOption::VALUE_REQUIRED, "Password of user"),
+                    new InputOption('name', 'a', InputOption::VALUE_REQUIRED, "Name of user"),
+                    new InputOption('surname', 'b', InputOption::VALUE_OPTIONAL, "Surname of user"),
+                    new InputOption('email', 'c', InputOption::VALUE_REQUIRED, "Email of user"),
+                    new InputOption('password', 'd', InputOption::VALUE_REQUIRED, "Password of user"),
                 ))
             )
         ;
@@ -70,4 +70,4 @@ class CreateAdminCommand extends ContainerAwareCommand
     }
 }
 
-//    bin/console app:admin-create -n "Artem" -s "Tantsiura" -e "fff@ff.f" -p "111111"
+//    bin/console app:admin-create -n "Artem" -s "Tantsiura" -e "qwe@qwe.qwe" -p "qwerty"
