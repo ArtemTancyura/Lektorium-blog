@@ -223,7 +223,16 @@ class User implements UserInterface, \JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getApiToken()
+    {
+        return $this->apiToken;
+    }
+
+    /**
      * @param string $apiToken
+     * @return User
      */
     public function setApiToken($apiToken)
     {
@@ -234,10 +243,11 @@ class User implements UserInterface, \JsonSerializable
     {
         return [
             'id' => $this->getId(),
+            'email' => $this->getEmail(),
             'firstName' => $this->getFirstName(),
             'lastName' => $this->getLastName(),
-            'email' => $this->getEmail(),
-            'roles' => $this->getRoles()
+            'password' => $this->getPassword(),
+            'apiToken' => $this->getApiToken()
         ];
     }
 }

@@ -70,4 +70,4 @@ class CreateAdminCommand extends ContainerAwareCommand
     }
 }
 
-//    bin/console app:admin-create -n "Artem" -s "Tantsiura" -e "qwe@qwe.qwe" -p "qwerty"
+//   bin/console app:admin-create -a "Artem" -b "Tantsiura" -c "qwe@qwe.qwe" -d "qwerty"
